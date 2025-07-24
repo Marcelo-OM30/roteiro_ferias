@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roteiro de Férias - Marcelo, Cintia e Regis</title>
+    <link rel="stylesheet" href="roteiro_ferias.css">
+</head>
+
+<body>
+    <div id="loginBox"
+        style="max-width:400px;margin:40px auto 0 auto;background:#fff;padding:30px 30px 20px 30px;border-radius:12px;box-shadow:0 4px 16px #b2dfdb55;display:none;">
+        <h2 style="text-align:center;">Login</h2>
+        <form id="loginForm">
+            <label>Email:<br><input type="email" id="loginEmail" required></label><br>
+            <label>Senha:<br><input type="password" id="loginSenha" required></label><br>
+            <button type="submit">Entrar</button>
+        </form>
+        <div id="registerArea" style="display:none;">
+            <p style="text-align:center;">ou</p>
+            <form id="registerForm">
+                <label>Email:<br><input type="email" id="registerEmail" required></label><br>
+                <label>Senha:<br><input type="password" id="registerSenha" required></label><br>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+        <div id="loginMsg" style="color:#b22222;text-align:center;margin-top:10px;"></div>
+    </div>
+    <div id="entradaAnimacao"
+        style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(255,255,255,0.97);">
+        <div
+            style="width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+                alt="Cabana na Montanha" style="max-width:340px;border-radius:18px;box-shadow:0 8px 32px #1a3c5d33;">
+            <h2 style="color:#1a3c5d;margin-top:28px;font-size:2em;">Bem-vindo ao seu roteiro!</h2>
+        </div>
+    </div>
+    <div id="appBox" style="display:none;">
+        <h1>Monte seu Roteiro de Férias</h1>
+        <button id="logoutBtn" style="float:right;background:#e57373;">Sair</button>
+        <button id="publicPageBtn"
+            style="float:right;margin-right:10px;background:linear-gradient(90deg,#26a69a 60%,#b2dfdb 100%);color:#fff;border:none;border-radius:6px;padding:8px 18px;font-size:1em;font-weight:600;cursor:pointer;transition:background 0.2s;">Ver
+            página pública</button>
+        <form id="formRoteiro" autocomplete="off">
+            <label>Cidade a visitar:<br>
+                <input type="text" id="cidade" required>
+            </label><br><br>
+            <label>Data programada:<br>
+                <input type="date" id="data" required>
+            </label><br><br>
+            <fieldset style="border:1.5px solid #b2dfdb; border-radius:8px; padding:10px 14px; margin-bottom:18px;">
+                <legend style="color:#1a3c5d; font-weight:500;">Transporte</legend>
+                <label>Combustível (R$):<br>
+                    <input type="number" id="combustivel" min="0" step="0.01" placeholder="Ex: 150.00">
+                </label>
+                <label>Alimentação (R$):<br>
+                    <input type="number" id="alimentacao" min="0" step="0.01" placeholder="Ex: 200.00">
+                </label>
+            </fieldset>
+            <div id="passeiosArea">
+                <label>Passeio:<br>
+                    <input type="text" class="passeio-nome" required>
+                </label>
+                <label> Custo (R$):
+                    <input type="number" class="passeio-custo" min="0" step="0.01" required>
+                </label>
+            </div>
+            <button type="button" onclick="adicionarPasseio()">Adicionar outro passeio</button><br><br>
+            <label>Vai se hospedar?
+                <select id="hospedar" onchange="toggleHospedagem()">
+                    <option value="false">Não</option>
+                    <option value="true">Sim</option>
+                </select>
+            </label><br>
+            <div id="hospedagemArea" style="display:none; margin-top:10px;">
+                <label>Onde:<br>
+                    <input type="text" id="hotel">
+                </label><br>
+                <label>Preço da diária (R$):
+                    <input type="number" id="diaria" min="0" step="0.01">
+                </label><br>
+                <label>Café incluso?
+                    <select id="cafe">
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>
+                    </select>
+                </label><br>
+                <label>Preço total da hospedagem (R$):
+                    <input type="number" id="totalHospedagem" min="0" step="0.01">
+                </label>
+            </div><br>
+            <button type="submit">Adicionar ao roteiro</button>
+        </form>
+        <hr>
+        <h2>Roteiro Montado</h2>
+        <!-- Botão de salvar removido, salvamento agora é automático -->
+        <div id="roteiro"></div>
+    </div>
+
+    <!-- Firebase App (core) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="roteiro_ferias.js"></script>
+</body>
+
+</html>

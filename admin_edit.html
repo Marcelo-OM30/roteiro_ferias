@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Roteiro - Admin</title>
+    <link rel="stylesheet" href="roteiro_ferias.css">
+    <style>
+        body {
+            background: #f7fafd;
+            font-family: sans-serif;
+        }
+
+        #editApp {
+            max-width: 520px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px #b2dfdb55, 0 1.5px 8px #1a3c5d22;
+            padding: 32px 32px 24px 32px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #b2dfdb;
+            border-radius: 6px;
+            font-size: 1em;
+            background: #f7fafd;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+        }
+
+        .btn-bar {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            margin-top: 18px;
+        }
+
+        button {
+            background: linear-gradient(90deg, #1a3c5d 60%, #26a69a 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 24px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button.cancelar {
+            background: #e57373;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="editApp">
+        <h1 style="text-align:center;">Editar Roteiro</h1>
+        <form id="formEditRoteiro" autocomplete="off">
+            <label>Cidade a visitar:
+                <input type="text" id="cidade" required>
+            </label>
+            <label>Data programada:
+                <input type="date" id="data" required>
+            </label>
+            <fieldset style="border:1.5px solid #b2dfdb; border-radius:8px; padding:10px 14px; margin-bottom:18px;">
+                <legend style="color:#1a3c5d; font-weight:500;">Transporte</legend>
+                <label>Combustível (R$):
+                    <input type="number" id="combustivel" min="0" step="0.01" placeholder="Ex: 150.00">
+                </label>
+                <label>Alimentação (R$):
+                    <input type="number" id="alimentacao" min="0" step="0.01" placeholder="Ex: 200.00">
+                </label>
+            </fieldset>
+            <div id="passeiosArea">
+                <!-- Passeios serão inseridos via JS -->
+            </div>
+            <button type="button" id="btnAddPasseio">Adicionar outro passeio</button>
+            <label>Vai se hospedar?
+                <select id="hospedar">
+                    <option value="false">Não</option>
+                    <option value="true">Sim</option>
+                </select>
+            </label>
+            <div id="hospedagemArea" style="display:none; margin-top:10px;">
+                <label>Onde:
+                    <input type="text" id="hotel">
+                </label>
+                <label>Link da hospedagem:
+                    <input type="url" id="hotelLink" placeholder="https://...">
+                </label>
+                <label>Preço da diária (R$):
+                    <input type="number" id="diaria" min="0" step="0.01">
+                </label>
+                <label>Café incluso?
+                    <select id="cafe">
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>
+                    </select>
+                </label>
+                <label>Preço total da hospedagem (R$):
+                    <input type="number" id="totalHospedagem" min="0" step="0.01">
+                </label>
+            </div>
+            <div class="btn-bar">
+                <button type="button" class="cancelar" id="btnCancelar">Cancelar</button>
+                <button type="submit">Salvar alterações</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="firebaseConfig.js"></script>
+    <script src="admin_edit.js"></script>
+</body>
+
+</html>

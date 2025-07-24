@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <style>
+        #adminApp input,
+        #adminApp select {
+            display: block !important;
+            width: 100% !important;
+            max-width: 400px;
+            padding: 10px 12px;
+            border: 1.5px solid #b2dfdb;
+            border-radius: 6px;
+            font-size: 1em;
+            background: #f7fafd;
+            box-sizing: border-box;
+            margin-bottom: 8px;
+        }
+
+        #adminApp label {
+            display: block;
+            margin-bottom: 8px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Roteiro de Férias</title>
+    <link rel="stylesheet" href="roteiro_ferias.css">
+    <style>
+        @media (max-width: 600px) {
+            #appBox h1 {
+                font-size: 1.3em !important;
+            }
+
+            #appBox .admin-btn-bar {
+                flex-direction: column !important;
+                gap: 10px !important;
+                max-width: 100% !important;
+            }
+
+            #appBox .admin-btn-bar button {
+                width: 100% !important;
+                min-width: 0 !important;
+                font-size: 1em !important;
+                padding: 12px 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="adminApp">
+        <div id="entradaAnimacao"
+            style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(255,255,255,0.97);">
+            <div
+                style="width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+                    alt="Cabana na Montanha"
+                    style="max-width:340px;border-radius:18px;box-shadow:0 8px 32px #1a3c5d33;">
+                <h2 style="color:#1a3c5d;margin-top:28px;font-size:2em;">Bem-vindo ao seu roteiro!</h2>
+            </div>
+        </div>
+        <div id="appBox" style="display:none;">
+            <div style="margin-bottom:18px;">
+                <h1 style="margin:0 auto 18px auto;font-size:2em;text-align:center;">Monte seu Roteiro de Férias</h1>
+                <div class="admin-btn-bar"
+                    style="display:flex;justify-content:center;align-items:center;gap:18px;width:100%;max-width:420px;margin:0 auto;">
+                    <button id="publicPageBtn"
+                        style="flex:1;min-width:0;background:linear-gradient(90deg,#26a69a 60%,#b2dfdb 100%);color:#fff;border:none;border-radius:6px;padding:12px 0;font-size:1.08em;font-weight:600;cursor:pointer;transition:background 0.2s;box-shadow:0 2px 8px #b2dfdb33;">Ver
+                        página pública</button>
+                    <button id="logoutBtn"
+                        style="flex:1;min-width:0;background:#e57373;color:#fff;border:none;border-radius:6px;padding:12px 0;font-size:1.08em;font-weight:600;cursor:pointer;transition:background 0.2s;box-shadow:0 2px 8px #b2dfdb33;">Sair</button>
+                </div>
+            </div>
+            <form id="formRoteiro" autocomplete="off">
+                <label>Cidade a visitar:<br>
+                    <input type="text" id="cidade" required
+                        style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                </label><br><br>
+                <label>Data programada:<br>
+                    <input type="date" id="data" required
+                        style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                </label><br><br>
+                <fieldset style="border:1.5px solid #b2dfdb; border-radius:8px; padding:10px 14px; margin-bottom:18px;">
+                    <legend style="color:#1a3c5d; font-weight:500;">Transporte</legend>
+                    <label>Combustível (R$):<br>
+                        <input type="number" id="combustivel" min="0" step="0.01" placeholder="Ex: 150.00"
+                            style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                    </label>
+                    <label>Alimentação (R$):<br>
+                        <input type="number" id="alimentacao" min="0" step="0.01" placeholder="Ex: 200.00"
+                            style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                    </label>
+                </fieldset>
+                <div id="passeiosArea">
+                    <label>Passeio:<br>
+                        <input type="text" class="passeio-nome" required
+                            style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                    </label>
+                    <label>Link do passeio:<br>
+                        <input type="url" class="passeio-link" placeholder="https://..."
+                            style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                    </label>
+                    <label> Custo (R$):
+                        <input type="number" class="passeio-custo" min="0" step="0.01" required
+                            style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                    </label>
+                </div>
+                <button type="button" onclick="adicionarPasseio()">Adicionar outro passeio</button><br><br>
+                <label>Vai se hospedar?
+                    <select id="hospedar" onchange="toggleHospedagem()">
+                        <option value="false">Não</option>
+                        <option value="true">Sim</option>
+                    </select>
+                </label><br>
+                <div id="hospedagemArea" style="display:none; margin-top:10px;">
+                    <label>Onde:<br>
+                        <input type="text" id="hotel"
+                            style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                    </label>
+                    <label>Link da hospedagem:<br>
+                        <input type="url" id="hotelLink" placeholder="https://..."
+                            style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                    </label>
+                    <label>Preço da diária (R$):
+                        <input type="number" id="diaria" min="0" step="0.01"
+                            style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                    </label>
+                    <label>Café incluso?
+                        <select id="cafe"
+                            style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                    </label>
+                    <label>Preço total da hospedagem (R$):
+                        <input type="number" id="totalHospedagem" min="0" step="0.01"
+                            style="width:100%;max-width:320px;padding:10px 12px;border:1.5px solid #b2dfdb;border-radius:6px;font-size:1em;background:#f7fafd;box-sizing:border-box;">
+                    </label>
+                </div><br>
+                <button id="btnAdicionarRoteiro" type="submit">Adicionar ao roteiro</button>
+                <button id="btnAtualizarRoteiro" type="button"
+                    style="display:none;background:#ffd54f;color:#333;">Atualizar roteiro</button>
+            </form>
+            <hr>
+            <h2>Roteiro Montado</h2>
+            <!-- Botão de salvar removido, salvamento agora é automático -->
+            <div id="roteiro"></div>
+        </div>
+
+
+
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+        <script src="firebaseConfig.js"></script>
+        <script src="admin.js"></script>
+</body>
+
+</html>
